@@ -410,7 +410,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Command="{Binding SettingButtonCommand}"
-            Content="Button"
+            Content="Setting"
+            FontSize="30"
             Cursor="Hand" />
 
     </Grid>

@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:DigitalScoreSheet_For_VolleyBall"
     xmlns:local1="clr-namespace:DigitalScoreSheet_For_VolleyBall.ViewModel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
     Width="1920"
@@ -12,13 +13,12 @@
     Background="#F8F8F8"
     mc:Ignorable="d">
     <Window.DataContext>
-        <local1:MainWindowViewModel />
+        <local1:GameWindowViewModel />
     </Window.DataContext>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -50,7 +50,7 @@
                 <Border
                     Grid.RowSpan="2"
                     Grid.Column="0"
-                    Background="IndianRed" />
+                    Background="#0146AE" />
                 <TextBlock
                     Grid.RowSpan="2"
                     Grid.Column="1"
@@ -99,7 +99,7 @@
                 <Border
                     Grid.RowSpan="2"
                     Grid.Column="4"
-                    Background="BlueViolet" />
+                    Background="#FF0000" />
                 <TextBlock
                     Grid.RowSpan="2"
                     Grid.Column="2"
@@ -143,9 +143,9 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Button
+                    Height="200"
                     Margin="10"
-                    Background="IndianRed"
-                    BorderBrush="Transparent"
+                    Background="#0146AE"
                     Command="{Binding AServeCommand}"
                     Content="{Binding AServeContext.Value}"
                     FontSize="30"
@@ -153,9 +153,9 @@
                     IsEnabled="{Binding AButtonEnable.Value}" />
                 <Button
                     Grid.Row="1"
+                    Height="100"
                     Margin="10"
-                    Background="IndianRed"
-                    BorderBrush="Transparent"
+                    Background="#0146AE"
                     Command="{Binding ATimeOutCommand}"
                     Content="TIMEOUT"
                     FontSize="20"
@@ -163,12 +163,14 @@
                     IsEnabled="{Binding ATimeOutEnable.Value}" />
                 <Button
                     Grid.Row="2"
+                    Height="100"
                     Margin="10"
-                    Background="IndianRed"
-                    BorderBrush="Transparent"
-                    Content=""
+                    Background="#0146AE"
+                    Command="{Binding ATeamSubstitutionCommand}"
+                    Content="Substitution"
                     FontSize="20"
-                    FontWeight="Heavy" />
+                    FontWeight="Heavy"
+                    IsEnabled="{Binding ASubstitutionEnable.Value}" />
             </Grid>
 
             <Grid Grid.Column="3">
@@ -179,9 +181,9 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Button
+                    Height="200"
                     Margin="10"
-                    Background="BlueViolet"
-                    BorderBrush="Transparent"
+                    Background="#FF0000"
                     Command="{Binding BServeCommand}"
                     Content="{Binding BServeContext.Value}"
                     FontSize="30"
@@ -189,9 +191,9 @@
                     IsEnabled="{Binding BButtonEnable.Value}" />
                 <Button
                     Grid.Row="1"
+                    Height="100"
                     Margin="10"
-                    Background="BlueViolet"
-                    BorderBrush="Transparent"
+                    Background="#FF0000"
                     Command="{Binding BTimeOutCommand}"
                     Content="TIMEOUT"
                     FontSize="20"
@@ -199,20 +201,14 @@
                     IsEnabled="{Binding BTimeOutEnable.Value}" />
                 <Button
                     Grid.Row="2"
+                    Height="100"
                     Margin="10"
-                    Background="BlueViolet"
-                    BorderBrush="Transparent"
-                    Content=""
-                    FontSize="30"
-                    FontWeight="Heavy" />
-                <Button
-                    Grid.Row="3"
-                    Margin="10"
-                    Background="BlueViolet"
-                    BorderBrush="Transparent"
-                    Content=""
-                    FontSize="30"
-                    FontWeight="Heavy" />
+                    Background="#FF0000"
+                    Command="{Binding BTeamSubstitutionCommand}"
+                    Content="substitution"
+                    FontSize="20"
+                    FontWeight="Heavy"
+                    IsEnabled="{Binding BSubstitutionEnable.Value}" />
             </Grid>
 
             <Grid
@@ -256,6 +252,8 @@
                     Grid.ColumnSpan="7"
                     Background="Black" />
 
+                
+                
                 <Rectangle
                     Grid.Row="1"
                     Grid.Column="1"
@@ -407,27 +405,13 @@
         </Grid>
         <Button
             Grid.Row="2"
-            Margin="652,28,652,28"
-            Background="IndianRed"
-            BorderBrush="Transparent"
+            Width="170"
+            Height="92"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
             Command="{Binding SettingButtonCommand}"
-            Content="TeamSetting"
-            FontSize="30"
-            FontWeight="Heavy"
-            IsEnabled="{Binding SettingEnable.Value}" />
-        <Button
-            Grid.Row="2"
-            Margin="924,28,380,28"
-            Command="{Binding BTeamLineUpCommand}"
-            Content="LineUp"
-            FontSize="30"
-            FontWeight="Heavy" />
-        <Button
-            Grid.Row="2"
-            Margin="372,28,932,28"
-            Command="{Binding ATeamLineUpCommand}"
-            Content="LineUp"
-            FontSize="30"
-            FontWeight="Heavy" />
+            Content="Button"
+            Cursor="Hand" />
+
     </Grid>
 </Window>

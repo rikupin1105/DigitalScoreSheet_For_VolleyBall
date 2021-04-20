@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace DigitalScoreSheet_For_VolleyBall
 {
@@ -108,6 +109,30 @@ namespace DigitalScoreSheet_For_VolleyBall
 
         #endregion
 
+        #region Substitution
+        private bool _ASubstitutionEnable { get; set; } = true;
+        public bool ASubstitutionEnable
+        {
+            get => _ASubstitutionEnable;
+            set
+            {
+                _ASubstitutionEnable = value;
+                OnPropertyChanged(nameof(ASubstitutionEnable));
+            }
+        }
+
+        private bool _BSubstitutionEnable { get; set; } = true;
+        public bool BSubstitutionEnable
+        {
+            get => _BSubstitutionEnable;
+            set
+            {
+                _BSubstitutionEnable = value;
+                OnPropertyChanged(nameof(BSubstitutionEnable));
+            }
+        }
+        #endregion
+
         #region ServeContext
         private string _AServeContext { get; set; }
         public string AServeContext
@@ -131,7 +156,7 @@ namespace DigitalScoreSheet_For_VolleyBall
         }
         #endregion
 
-        #region TeamName
+        #region Team
         private string _ATeamName { get; set; }
         public string ATeamName
         {
@@ -176,6 +201,8 @@ namespace DigitalScoreSheet_For_VolleyBall
             }
         }
         #endregion
+
+        #region Setting
         private bool _SettingEnable { get; set; } = true;
         public bool SettingEnable
         {
@@ -186,6 +213,18 @@ namespace DigitalScoreSheet_For_VolleyBall
                 OnPropertyChanged(nameof(SettingEnable));
             }
         }
+
+        private bool _LineUpEnable { get; set; } = false;
+        public bool LineUpEnable
+        {
+            get => _LineUpEnable;
+            set
+            {
+                _LineUpEnable = value;
+                OnPropertyChanged(nameof(LineUpEnable));
+            }
+        }
+        #endregion
 
 
         public event PropertyChangedEventHandler PropertyChanged = null;

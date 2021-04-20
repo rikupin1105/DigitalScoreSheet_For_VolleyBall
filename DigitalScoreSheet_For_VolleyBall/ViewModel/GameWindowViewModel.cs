@@ -10,10 +10,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DigitalScoreSheet_For_VolleyBall.View;
+using System.Windows.Media;
 
 namespace DigitalScoreSheet_For_VolleyBall.ViewModel
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class GameWindowViewModel : INotifyPropertyChanged
     {
         public ReadOnlyReactiveProperty<bool> ATimeOutEnable { get; }
         public ReadOnlyReactiveProperty<bool> BTimeOutEnable { get; }
@@ -31,9 +32,11 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
         public ReadOnlyReactiveProperty<string> BTeamName { get; }
         public ReadOnlyReactiveProperty<int> ATeamSet { get; }
         public ReadOnlyReactiveProperty<int> BTeamSet { get; }
+        public ReadOnlyReactiveProperty<bool> ASubstitutionEnable { get; }
+        public ReadOnlyReactiveProperty<bool> BSubstitutionEnable { get; }
         public ReadOnlyReactiveProperty<bool> SettingEnable { get; }
-
-        public MainWindowViewModel()
+        public ReadOnlyReactiveProperty<bool> LineUpEnable { get; }
+        public GameWindowViewModel()
         {
             ATimeOutEnable = Display.Instance.ObserveProperty(x => x.ATimeOutEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTimeOutEnable = Display.Instance.ObserveProperty(x => x.BTimeOutEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
@@ -59,7 +62,12 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             ATeamSet = Display.Instance.ObserveProperty(x => x.ATeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTeamSet = Display.Instance.ObserveProperty(x => x.BTeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
 
+            ASubstitutionEnable = Display.Instance.ObserveProperty(x => x.ASubstitutionEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
+            BSubstitutionEnable = Display.Instance.ObserveProperty(x => x.BSubstitutionEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
+
+
             SettingEnable = Display.Instance.ObserveProperty(x => x.SettingEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
+            LineUpEnable = Display.Instance.ObserveProperty(x => x.LineUpEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
 
 
             //Command
@@ -68,16 +76,17 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             ATimeOutCommand.Subscribe(_ => ATimeOut());
             BTimeOutCommand.Subscribe(_ => BTimeOut());
             SettingButtonCommand.Subscribe(_ => SettingWindow());
-            ATeamLineUpCommand.Subscribe(_ => ALineUp());
-            BTeamLineUpCommand.Subscribe(_ => BLineUp());
+
+            ATeamSubstitutionCommand.Subscribe(_ => ASubstitution());
+            BTeamSubstitutionCommand.Subscribe(_ => BSubstitution());
         }
         public ReactiveCommand AServeCommand { get; } = new ReactiveCommand();
         public ReactiveCommand BServeCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ATimeOutCommand { get; } = new ReactiveCommand();
         public ReactiveCommand BTimeOutCommand { get; } = new ReactiveCommand();
         public ReactiveCommand SettingButtonCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand ATeamLineUpCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand BTeamLineUpCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand ATeamSubstitutionCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand BTeamSubstitutionCommand { get; } = new ReactiveCommand();
 
 
         private void SettingWindow()
@@ -85,17 +94,25 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             var window = new TeamSettingWindow();
             window.Show();
         }
-        private void ALineUp()
-        {
-            var window = new ATeamRotationWindow();
-            window.Show();
-        }
-        private void BLineUp()
-        {
-            var window = new BTeamRotationWindow();
-            window.Show();
-        }
 
+        private int ASubstitutionCount { get; set; } = 0;
+        private int BSubstitutionCount { get; set; } = 0;
+        private void ASubstitution()
+        {
+            ASubstitutionCount++;
+            if (ASubstitutionCount >= 6)
+            {
+                Display.Instance.ASubstitutionEnable = false;
+            }
+        }
+        private void BSubstitution()
+        {
+            BSubstitutionCount++;
+            if (BSubstitutionCount >= 6)
+            {
+                Display.Instance.BSubstitutionEnable = false;
+            }
+        }
 
         private bool CurrentGame { get; set; } = true;
 
@@ -117,6 +134,8 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
                 Display.Instance.ATimeOutEnable = false;
                 Display.Instance.BTimeOutEnable = false;
                 Display.Instance.SettingEnable = false;
+                Display.Instance.ASubstitutionEnable = false;
+                Display.Instance.BSubstitutionEnable = false;
             }
             else
             {
@@ -141,6 +160,14 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
                 {
                     Display.Instance.BTimeOutEnable = true;
                 }
+                if (ASubstitutionCount < 6)
+                {
+                    Display.Instance.ASubstitutionEnable = true;
+                }
+                if (BSubstitutionCount < 6)
+                {
+                    Display.Instance.BSubstitutionEnable = true;
+                }
             }
         }
         private void BServe()
@@ -156,6 +183,8 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
                 Display.Instance.ATimeOutEnable = false;
                 Display.Instance.BTimeOutEnable = false;
                 Display.Instance.SettingEnable = false;
+                Display.Instance.ASubstitutionEnable = false;
+                Display.Instance.BSubstitutionEnable = false;
             }
             else
             {
@@ -178,6 +207,14 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
                 if (BTimeOutCount < 2)
                 {
                     Display.Instance.BTimeOutEnable = true;
+                }
+                if (ASubstitutionCount < 6)
+                {
+                    Display.Instance.ASubstitutionEnable = true;
+                }
+                if (BSubstitutionCount < 6)
+                {
+                    Display.Instance.BSubstitutionEnable = true;
                 }
             }
         }

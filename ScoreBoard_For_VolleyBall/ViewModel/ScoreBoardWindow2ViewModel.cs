@@ -1,12 +1,7 @@
 ﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Concurrency;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ScoreBoard_For_VolleyBall.ViewModel
 {
@@ -24,10 +19,8 @@ namespace ScoreBoard_For_VolleyBall.ViewModel
         {
             APoint = Display.Instance.ObserveProperty(x => x.APoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BPoint = Display.Instance.ObserveProperty(x => x.BPoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
             ATeamName = Display.Instance.ObserveProperty(x => x.ATeamName).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTeamName = Display.Instance.ObserveProperty(x => x.BTeamName).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
             AServe = Display.Instance.ObserveProperty(x => x.AServe).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BServe = Display.Instance.ObserveProperty(x => x.BServe).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
         }

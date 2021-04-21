@@ -1,16 +1,11 @@
-﻿using Prism.Commands;
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using ScoreBoard_For_VolleyBall.View;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Concurrency;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace ScoreBoard_For_VolleyBall.ViewModel
 {
@@ -68,6 +63,7 @@ namespace ScoreBoard_For_VolleyBall.ViewModel
             StreaminWindowCommand.Subscribe(_ => new StreamingWindow().Show());
             ScoreBoard1Command.Subscribe(_ => new ScoreBoardWindow().Show());
             ScoreBoard2Command.Subscribe(_ => new ScoreBoardWindow2().Show());
+            GameSettingCommand.Subscribe(_ => GameSetting());
         }
         public ReactiveCommand APointCommand { get; } = new ReactiveCommand();
         public ReactiveCommand BPointCommand { get; } = new ReactiveCommand();
@@ -80,7 +76,18 @@ namespace ScoreBoard_For_VolleyBall.ViewModel
         public ReactiveCommand StreaminWindowCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ScoreBoard1Command { get; } = new ReactiveCommand();
         public ReactiveCommand ScoreBoard2Command { get; } = new ReactiveCommand();
+        public ReactiveCommand GameSettingCommand { get; } = new ReactiveCommand();
 
+        private void GameSetting()
+        {
+            if (Display.Instance.APoint == 0&&Display.Instance.BPoint==0)
+            {
+                if (Display.Instance.ATeamSet == 0 && Display.Instance.BTeamSet == 0)
+                {
+                    new GameSettingWindow().Show();
+                }
+            }
+        }
         private void SwitchServer()
         {
             if (Display.Instance.isAServe)
@@ -99,17 +106,12 @@ namespace ScoreBoard_For_VolleyBall.ViewModel
             window.Show();
         }
 
-        static class Rule
+        static public class Rule
         {
-            //static public int Match = 5;
-            //static public int WinPoint = 25;
-            //static public int FinalSetWinPoint = 15;
-            //static public int FinalSetCourtChangePoint = 8;
-
-            static public int Match = 3;
+            static public int Match = 5;
             static public int WinPoint = 25;
-            static public int FinalSetWinPoint = 25;
-            static public int FinalSetCourtChangePoint = 13;
+            static public int FinalSetWinPoint = 15;
+            static public int FinalSetCourtChangePoint = 8;
         }
 
         private readonly List<HisDate> History = new List<HisDate>()

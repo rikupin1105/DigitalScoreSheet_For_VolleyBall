@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="DigitalScoreSheet_For_VolleyBall.App"
+    x:Class="ScoreBoard_For_VolleyBall.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:DigitalScoreSheet_For_VolleyBall"
+    xmlns:local="clr-namespace:ScoreBoard_For_VolleyBall"
     StartupUri="View/GameWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>

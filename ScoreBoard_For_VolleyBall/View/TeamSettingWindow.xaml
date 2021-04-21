@@ -1,9 +1,8 @@
 ﻿<Window
-    x:Class="DigitalScoreSheet_For_VolleyBall.View.TeamSettingWindow"
+    x:Class="ScoreBoard_For_VolleyBall.View.TeamSettingWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DigitalScoreSheet_For_VolleyBall.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="TeamSettingWindow"
     Width="1000"
@@ -50,11 +49,11 @@
             </StackPanel>
         </Grid>
         <Button
-            Margin="20"
             Height="100"
+            Margin="20"
+            Background="#0146AE"
             Click="Button_Click"
             Content="Submit"
-            Background="#0146AE"
             FontSize="30" />
     </StackPanel>
 </Window>

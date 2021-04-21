@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DigitalScoreSheet_For_VolleyBall.ViewModel
+namespace ScoreBoard_For_VolleyBall.ViewModel
 {
     class ScoreBoardWindow2ViewModel
     {

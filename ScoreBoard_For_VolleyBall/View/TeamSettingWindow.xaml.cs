@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DigitalScoreSheet_For_VolleyBall.View
+namespace ScoreBoard_For_VolleyBall.View
 {
     /// <summary>
     /// TeamSettingWindow.xaml の相互作用ロジック
@@ -33,13 +33,11 @@ namespace DigitalScoreSheet_For_VolleyBall.View
             {
                 if (AServe.IsChecked == true)
                 {
-                    Display.Instance.AServe = "●";
-                    Display.Instance.BServe = "";
+                    Display.Instance.isAServe = true;
                 }
                 else
                 {
-                    Display.Instance.AServe = "";
-                    Display.Instance.BServe = "●";
+                    Display.Instance.isAServe = false;
                 }
 
                 Display.Instance.ATeamName = ATeamName.Text;

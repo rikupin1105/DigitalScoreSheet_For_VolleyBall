@@ -21,6 +21,10 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
 
         public ReadOnlyReactiveProperty<int> ATeamSet { get; }
         public ReadOnlyReactiveProperty<int> BTeamSet { get; }
+        public ReadOnlyReactiveProperty<string> AServe { get; }
+        public ReadOnlyReactiveProperty<string> BServe { get; }
+
+
         public StreamingWindowViewModel()
         {
             APoint = Display.Instance.ObserveProperty(x => x.APoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
@@ -31,6 +35,9 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             
             ATeamSet = Display.Instance.ObserveProperty(x => x.ATeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTeamSet = Display.Instance.ObserveProperty(x => x.BTeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
+
+            AServe = Display.Instance.ObserveProperty(x => x.AServe).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
+            BServe = Display.Instance.ObserveProperty(x => x.BServe).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
 
         }
     }

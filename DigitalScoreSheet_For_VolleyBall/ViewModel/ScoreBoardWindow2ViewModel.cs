@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DigitalScoreSheet_For_VolleyBall.ViewModel
 {
-    class ScoreBoardWindowViewModel
+    class ScoreBoardWindow2ViewModel
     {
         public ReadOnlyReactiveProperty<int> APoint { get; }
         public ReadOnlyReactiveProperty<int> BPoint { get; }
@@ -20,7 +20,7 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
 
         public ReadOnlyReactiveProperty<string> AServe { get; }
         public ReadOnlyReactiveProperty<string> BServe { get; }
-        public ScoreBoardWindowViewModel()
+        public ScoreBoardWindow2ViewModel()
         {
             APoint = Display.Instance.ObserveProperty(x => x.APoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BPoint = Display.Instance.ObserveProperty(x => x.BPoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));

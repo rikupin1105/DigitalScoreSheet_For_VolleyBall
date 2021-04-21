@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using DigitalScoreSheet_For_VolleyBall.View;
+using Prism.Commands;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -9,52 +10,23 @@ using System.Reactive.Concurrency;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using DigitalScoreSheet_For_VolleyBall.View;
 using System.Windows.Media;
 
 namespace DigitalScoreSheet_For_VolleyBall.ViewModel
 {
     public class GameWindowViewModel : INotifyPropertyChanged
     {
-        public ReadOnlyReactiveProperty<bool> ATimeOutEnable { get; }
-        public ReadOnlyReactiveProperty<bool> BTimeOutEnable { get; }
-        public ReadOnlyReactiveProperty<string> AServeContext { get; }
-        public ReadOnlyReactiveProperty<string> BServeContext { get; }
         public ReadOnlyReactiveProperty<int> APoint { get; }
         public ReadOnlyReactiveProperty<int> BPoint { get; }
-        public ReadOnlyReactiveProperty<bool> AButtonEnable { get; }
-        public ReadOnlyReactiveProperty<bool> BButtonEnable { get; }
-        public ReadOnlyReactiveProperty<int[]> AMember { get; }
-        public ReadOnlyReactiveProperty<int[]> BMember { get; }
-        public ReadOnlyReactiveProperty<string> ATimeOutIndicator { get; }
-        public ReadOnlyReactiveProperty<string> BTimeOutIndicator { get; }
         public ReadOnlyReactiveProperty<string> ATeamName { get; }
         public ReadOnlyReactiveProperty<string> BTeamName { get; }
         public ReadOnlyReactiveProperty<int> ATeamSet { get; }
         public ReadOnlyReactiveProperty<int> BTeamSet { get; }
-        public ReadOnlyReactiveProperty<bool> ASubstitutionEnable { get; }
-        public ReadOnlyReactiveProperty<bool> BSubstitutionEnable { get; }
         public ReadOnlyReactiveProperty<bool> SettingEnable { get; }
-        public ReadOnlyReactiveProperty<bool> LineUpEnable { get; }
         public GameWindowViewModel()
         {
-            ATimeOutEnable = Display.Instance.ObserveProperty(x => x.ATimeOutEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BTimeOutEnable = Display.Instance.ObserveProperty(x => x.BTimeOutEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
-            AServeContext = Display.Instance.ObserveProperty(x => x.AServeContext).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BServeContext = Display.Instance.ObserveProperty(x => x.BServeContext).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
             APoint = Display.Instance.ObserveProperty(x => x.APoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BPoint = Display.Instance.ObserveProperty(x => x.BPoint).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
-            AButtonEnable = Display.Instance.ObserveProperty(x => x.AButtonEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BButtonEnable = Display.Instance.ObserveProperty(x => x.BButtonEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
-            AMember = Display.Instance.ObserveProperty(x => x.AMember).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BMember = Display.Instance.ObserveProperty(x => x.BMember).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
-            ATimeOutIndicator = Display.Instance.ObserveProperty(x => x.ATimeOutIndicator).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BTimeOutIndicator = Display.Instance.ObserveProperty(x => x.BTimeOutIndicator).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
 
             ATeamName = Display.Instance.ObserveProperty(x => x.ATeamName).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTeamName = Display.Instance.ObserveProperty(x => x.BTeamName).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
@@ -62,31 +34,18 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             ATeamSet = Display.Instance.ObserveProperty(x => x.ATeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
             BTeamSet = Display.Instance.ObserveProperty(x => x.BTeamSet).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
 
-            ASubstitutionEnable = Display.Instance.ObserveProperty(x => x.ASubstitutionEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            BSubstitutionEnable = Display.Instance.ObserveProperty(x => x.BSubstitutionEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
-
             SettingEnable = Display.Instance.ObserveProperty(x => x.SettingEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-            LineUpEnable = Display.Instance.ObserveProperty(x => x.LineUpEnable).ToReadOnlyReactiveProperty(eventScheduler: new SynchronizationContextScheduler(SynchronizationContext.Current));
-
 
             //Command
-            AServeCommand.Subscribe(_ => AServe());
-            BServeCommand.Subscribe(_ => BServe());
-            ATimeOutCommand.Subscribe(_ => ATimeOut());
-            BTimeOutCommand.Subscribe(_ => BTimeOut());
+            APointCommand.Subscribe(_ => APointAdd());
+            BPointCommand.Subscribe(_ => BPointAdd());
             SettingButtonCommand.Subscribe(_ => SettingWindow());
-
-            ATeamSubstitutionCommand.Subscribe(_ => ASubstitution());
-            BTeamSubstitutionCommand.Subscribe(_ => BSubstitution());
+            UndoCommand.Subscribe(_ => Undo());
         }
-        public ReactiveCommand AServeCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand BServeCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand ATimeOutCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand BTimeOutCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand APointCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand BPointCommand { get; } = new ReactiveCommand();
         public ReactiveCommand SettingButtonCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand ATeamSubstitutionCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand BTeamSubstitutionCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand UndoCommand { get; } = new ReactiveCommand();
 
 
         private void SettingWindow()
@@ -95,204 +54,85 @@ namespace DigitalScoreSheet_For_VolleyBall.ViewModel
             window.Show();
         }
 
-        private int ASubstitutionCount { get; set; } = 0;
-        private int BSubstitutionCount { get; set; } = 0;
-        private void ASubstitution()
+        private readonly List<HisDate> History = new List<HisDate>()
         {
-            ASubstitutionCount++;
-            if (ASubstitutionCount >= 6)
+            new HisDate()
             {
-                Display.Instance.ASubstitutionEnable = false;
+                APoint = 0,
+                BPoint = 0,
+                ASet = 0,
+                BSet = 0,
+                AServe = "",
+                BServe = ""
             }
-        }
-        private void BSubstitution()
+        };
+        private void Undo()
         {
-            BSubstitutionCount++;
-            if (BSubstitutionCount >= 6)
+            var i = Math.Max(0, History.Count() - 2);
+
+            if (History.Count > 1 )
             {
-                Display.Instance.BSubstitutionEnable = false;
-            }
-        }
+                History.RemoveAt(Math.Max(0, History.Count() - 1));
 
-        private bool CurrentGame { get; set; } = true;
+                Display.Instance.APoint = History[i].APoint;
+                Display.Instance.BPoint = History[i].BPoint;
 
+                Display.Instance.AServe = History[i].AServe;
+                Display.Instance.BServe = History[i].BServe;
 
-        
-
-
-        private bool Aserve = true;
-        private void AServe()
-        {
-            if (CurrentGame)
-            {
-                //InGame
-                CurrentGame = false;
-                Display.Instance.AServeContext = "POINT";
-                Display.Instance.BServeContext = "POINT";
-                Display.Instance.AButtonEnable = true;
-                Display.Instance.BButtonEnable = true;
-                Display.Instance.ATimeOutEnable = false;
-                Display.Instance.BTimeOutEnable = false;
-                Display.Instance.SettingEnable = false;
-                Display.Instance.ASubstitutionEnable = false;
-                Display.Instance.BSubstitutionEnable = false;
-            }
-            else
-            {
-                //GetPoint
-                Display.Instance.APoint++;
-
-                CurrentGame = true;
-                Display.Instance.AServeContext = "SERVE";
-                Display.Instance.BServeContext = "";
-                Display.Instance.BButtonEnable = false;
-                Display.Instance.SettingEnable = true;
-                if (!Aserve)
-                {
-                    ARotation();
-                }
-                Aserve = true;
-                if (ATimeOutCount < 2)
-                {
-                    Display.Instance.ATimeOutEnable = true;
-                }
-                if (BTimeOutCount < 2)
-                {
-                    Display.Instance.BTimeOutEnable = true;
-                }
-                if (ASubstitutionCount < 6)
-                {
-                    Display.Instance.ASubstitutionEnable = true;
-                }
-                if (BSubstitutionCount < 6)
-                {
-                    Display.Instance.BSubstitutionEnable = true;
-                }
-            }
-        }
-        private void BServe()
-        {
-            if (CurrentGame)
-            {
-                //InGame
-                CurrentGame = false;
-                Display.Instance.BServeContext = "POINT";
-                Display.Instance.AServeContext = "POINT";
-                Display.Instance.AButtonEnable = true;
-                Display.Instance.BButtonEnable = true;
-                Display.Instance.ATimeOutEnable = false;
-                Display.Instance.BTimeOutEnable = false;
-                Display.Instance.SettingEnable = false;
-                Display.Instance.ASubstitutionEnable = false;
-                Display.Instance.BSubstitutionEnable = false;
-            }
-            else
-            {
-                //GetPoint
-                Display.Instance.BPoint++;
-                CurrentGame = true;
-                Display.Instance.AServeContext = "";
-                Display.Instance.BServeContext = "SERVE";
-                Display.Instance.AButtonEnable = false;
-                Display.Instance.SettingEnable = true;
-                if (Aserve)
-                {
-                    BRotation();
-                }
-                Aserve = false;
-                if (ATimeOutCount < 2)
-                {
-                    Display.Instance.ATimeOutEnable = true;
-                }
-                if (BTimeOutCount < 2)
-                {
-                    Display.Instance.BTimeOutEnable = true;
-                }
-                if (ASubstitutionCount < 6)
-                {
-                    Display.Instance.ASubstitutionEnable = true;
-                }
-                if (BSubstitutionCount < 6)
-                {
-                    Display.Instance.BSubstitutionEnable = true;
-                }
+                Display.Instance.ATeamSet = History[i].ASet;
+                Display.Instance.BTeamSet = History[i].BSet;
             }
         }
 
-
-       
-        private void ARotation()
+        private class HisDate
         {
-            var member = new int[6];
-            member[0] = Display.Instance.AMember[1];
-            member[1] = Display.Instance.AMember[2];
-            member[2] = Display.Instance.AMember[3];
-            member[3] = Display.Instance.AMember[4];
-            member[4] = Display.Instance.AMember[5];
-            member[5] = Display.Instance.AMember[0];
-            Display.Instance.AMember = member;
-        }
-        private void BRotation()
-        {
-            var member = new int[6];
-            member[0] = Display.Instance.BMember[1];
-            member[1] = Display.Instance.BMember[2];
-            member[2] = Display.Instance.BMember[3];
-            member[3] = Display.Instance.BMember[4];
-            member[4] = Display.Instance.BMember[5];
-            member[5] = Display.Instance.BMember[0];
-            Display.Instance.BMember = member;
+            public int APoint { get; set; }
+            public int BPoint { get; set; }
+            public int ASet { get; set; }
+            public int BSet { get; set; }
+            public string AServe { get; set; }
+            public string BServe { get; set; }
         }
 
 
 
-        private int ATimeOutCount { get; set; } = 0;
-        private int BTimeOutCount { get; set; } = 0;
-
-        private void ATimeOut()
+        private void APointAdd()
         {
-            BTimeOutCount++;
+            //GetPoint
+            Display.Instance.APoint++;
+            Display.Instance.SettingEnable = true;
+            Display.Instance.AServe = "●";
+            Display.Instance.BServe = "";
 
-            TimeWindow t = new TimeWindow();
-            t.Show();
-
-            ATimeOutCount++;
-            if (ATimeOutCount >= 2)
+            History.Add(new HisDate()
             {
-                Display.Instance.ATimeOutEnable = false;
-            }
-
-            if (ATimeOutCount == 1)
-            {
-                Display.Instance.ATimeOutIndicator = "TIMEOUT: ● 〇";
-            }
-            if (ATimeOutCount == 2)
-            {
-                Display.Instance.ATimeOutIndicator = "TIMEOUT: ● ●";
-            }
+                APoint = Display.Instance.APoint,
+                BPoint = Display.Instance.BPoint,
+                AServe = Display.Instance.AServe,
+                BServe = Display.Instance.BServe,
+                ASet = Display.Instance.ATeamSet,
+                BSet = Display.Instance.BTeamSet
+            });
         }
-        private void BTimeOut()
+        private void BPointAdd()
         {
-            BTimeOutCount++;
-            TimeWindow t = new TimeWindow();
-            t.Show();
+            //GetPoint
+            Display.Instance.BPoint++;
+            Display.Instance.SettingEnable = true;
+            Display.Instance.AServe = "";
+            Display.Instance.BServe = "●";
 
-            if (BTimeOutCount >= 2)
+            History.Add(new HisDate()
             {
-                Display.Instance.BTimeOutEnable = false;
-            }
-            if (BTimeOutCount == 1)
-            {
-                Display.Instance.BTimeOutIndicator = "● 〇 :TIMEOUT";
-            }
-            if (BTimeOutCount == 2)
-            {
-                Display.Instance.BTimeOutIndicator = "● ● :TIMEOUT";
-            }
+                APoint = Display.Instance.APoint,
+                BPoint = Display.Instance.BPoint,
+                AServe = Display.Instance.AServe,
+                BServe = Display.Instance.BServe,
+                ASet = Display.Instance.ATeamSet,
+                BSet = Display.Instance.BTeamSet
+            });
         }
-
-
-
 
 
 

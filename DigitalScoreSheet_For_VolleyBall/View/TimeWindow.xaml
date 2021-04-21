@@ -18,6 +18,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="100"
+            Foreground="#0146AE"
             Text="30" />
     </Grid>
 </Window>

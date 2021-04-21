@@ -12,51 +12,7 @@ namespace DigitalScoreSheet_For_VolleyBall
     {
         public static Display Instance { get; } = new Display();
 
-        #region OnCourtMember
-        private int[] _AMember { get; set; }
-        public int[] AMember
-        {
-            get => _AMember;
-            set
-            {
-                _AMember = value;
-                OnPropertyChanged(nameof(AMember));
-            }
-        }
-        private int[] _BMember { get; set; }
-        public int[] BMember
-        {
-            get => _BMember;
-            set
-            {
-                _BMember = value;
-                OnPropertyChanged(nameof(BMember));
-            }
-        }
-        #endregion
 
-        #region ButtonEnable
-        private bool _AButtonEnable { get; set; }
-        public bool AButtonEnable
-        {
-            get => _AButtonEnable;
-            set
-            {
-                _AButtonEnable = value;
-                OnPropertyChanged(nameof(AButtonEnable));
-            }
-        }
-        private bool _BButtonEnable { get; set; }
-        public bool BButtonEnable
-        {
-            get => _BButtonEnable;
-            set
-            {
-                _BButtonEnable = value;
-                OnPropertyChanged(nameof(BButtonEnable));
-            }
-        }
-        #endregion
 
         #region Point
         private int _APoint { get; set; }
@@ -75,83 +31,6 @@ namespace DigitalScoreSheet_For_VolleyBall
             {
                 _BPoint = value;
                 OnPropertyChanged(nameof(BPoint));
-            }
-        }
-        #endregion
-
-        #region TimeOut
-        private bool _ATimeOutEnable { get; set; } = true;
-        public bool ATimeOutEnable
-        {
-            get => _ATimeOutEnable;
-            set
-            {
-                _ATimeOutEnable = value;
-                OnPropertyChanged(nameof(ATimeOutEnable));
-            }
-        }
-
-        private bool _BTimeOutEnable { get; set; } = true;
-        public bool BTimeOutEnable
-        {
-            get => _BTimeOutEnable;
-            set
-            {
-                _BTimeOutEnable = value;
-                OnPropertyChanged(nameof(BTimeOutEnable));
-            }
-        }
-
-        private string _ATimeOutIndicator { get; set; } = "TIMEOUT: 〇 〇";
-        public string ATimeOutIndicator { get => _ATimeOutIndicator; set { _ATimeOutIndicator = value; OnPropertyChanged(nameof(ATimeOutIndicator)); } }
-        private string _BTimeOutIndicator { get; set; } = "〇 〇 :TIMEOUT";
-        public string BTimeOutIndicator { get => _BTimeOutIndicator; set { _BTimeOutIndicator = value; OnPropertyChanged(nameof(BTimeOutIndicator)); } }
-
-        #endregion
-
-        #region Substitution
-        private bool _ASubstitutionEnable { get; set; } = true;
-        public bool ASubstitutionEnable
-        {
-            get => _ASubstitutionEnable;
-            set
-            {
-                _ASubstitutionEnable = value;
-                OnPropertyChanged(nameof(ASubstitutionEnable));
-            }
-        }
-
-        private bool _BSubstitutionEnable { get; set; } = true;
-        public bool BSubstitutionEnable
-        {
-            get => _BSubstitutionEnable;
-            set
-            {
-                _BSubstitutionEnable = value;
-                OnPropertyChanged(nameof(BSubstitutionEnable));
-            }
-        }
-        #endregion
-
-        #region ServeContext
-        private string _AServeContext { get; set; }
-        public string AServeContext
-        {
-            get => _AServeContext;
-            set
-            {
-                _AServeContext = value;
-                OnPropertyChanged(nameof(AServeContext));
-            }
-        }
-        private string _BServeContext { get; set; }
-        public string BServeContext
-        {
-            get => _BServeContext;
-            set
-            {
-                _BServeContext = value;
-                OnPropertyChanged(nameof(BServeContext));
             }
         }
         #endregion
@@ -213,18 +92,16 @@ namespace DigitalScoreSheet_For_VolleyBall
                 OnPropertyChanged(nameof(SettingEnable));
             }
         }
-
-        private bool _LineUpEnable { get; set; } = false;
-        public bool LineUpEnable
-        {
-            get => _LineUpEnable;
-            set
-            {
-                _LineUpEnable = value;
-                OnPropertyChanged(nameof(LineUpEnable));
-            }
-        }
         #endregion
+
+        #region Serve
+        private string _AServe { get; set; }
+        public string AServe { get=>_AServe; set { _AServe = value; OnPropertyChanged(nameof(AServe)); } }
+
+        private string _BServe { get; set; }
+        public string BServe { get => _BServe; set { _BServe = value; OnPropertyChanged(nameof(BServe)); } }
+        #endregion
+
 
 
         public event PropertyChangedEventHandler PropertyChanged = null;

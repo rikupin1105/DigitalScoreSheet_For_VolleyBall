@@ -62,14 +62,12 @@
                 <Border
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
-                    Margin="1,1,0,2"
-                    Background="{Binding AColor.Value}" />
+                    Margin="1,1,0,2"/>
                 <Border
                     Grid.Row="2"
                     Grid.RowSpan="3"
                     Grid.ColumnSpan="2"
-                    Margin="1,1,0,1"
-                    Background="{Binding BColor.Value}" />
+                    Margin="1,1,0,1"/>
                 <Border
                     Grid.Column="0"
                     Grid.ColumnSpan="8"

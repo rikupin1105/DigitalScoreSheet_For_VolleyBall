@@ -31,69 +31,6 @@
                     VerticalContentAlignment="Center"
                     Content="Serve"
                     FontSize="20" />
-                <TextBlock
-                    Margin="10"
-                    FontSize="30"
-                    Text="LineUp" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBox
-                        x:Name="APosition4"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="APosition5"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="APosition3"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="APosition6"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="APosition2"
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="APosition1"
-                        Grid.Row="1"
-                        Grid.Column="3"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                </Grid>
             </StackPanel>
             <StackPanel Grid.Column="1">
                 <TextBlock
@@ -110,69 +47,6 @@
                     VerticalContentAlignment="Center"
                     Content="Serve"
                     FontSize="20" />
-                <TextBlock
-                    Margin="10"
-                    FontSize="30"
-                    Text="LineUp" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBox
-                        x:Name="BPosition4"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="BPosition5"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="BPosition3"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="BPosition6"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="BPosition2"
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                    <TextBox
-                        x:Name="BPosition1"
-                        Grid.Row="1"
-                        Grid.Column="3"
-                        Height="100"
-                        Margin="10"
-                        HorizontalContentAlignment="Center"
-                        FontSize="30" />
-                </Grid>
             </StackPanel>
         </Grid>
         <Button

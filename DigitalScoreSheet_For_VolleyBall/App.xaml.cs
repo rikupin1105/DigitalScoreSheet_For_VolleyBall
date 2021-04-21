@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using DigitalScoreSheet_For_VolleyBall.View;
+using ScoreBoard_For_VolleyBall.View;
 
 namespace DigitalScoreSheet_For_VolleyBall
 {
@@ -17,7 +18,9 @@ namespace DigitalScoreSheet_For_VolleyBall
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-
+            new StreamingWindow().Show();
+            new ScoreBoardWindow().Show();
+            new ScoreBoardWindow2().Show();
         }
     }
 }
